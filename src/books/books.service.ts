@@ -1,26 +1,40 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { Book, BookDocument } from './schemas/book.schema';
 
 @Injectable()
 export class BooksService {
+  constructor(@InjectModel(Book.name) private bookModel: Model<BookDocument>) {}
+
   private books = [];
-  getAll() {
-    return this.books;
+
+  async getAll(): Promise<Book[]> {
+    //return this.books;
+    return this.bookModel.find().exec();
   }
-  getOne(id: string) {
-    return this.books.filter((e) => e === id)[0];
+  async getOne(id: string): Promise<Book> {
+    //return this.books.filter((e) => e === id)[0];
+    return this.bookModel.findById(id);
   }
-  create(bookDto: CreateBookDto) {
+  async create(bookDto: CreateBookDto): Promise<Book> {
+    const newBook = new this.bookModel(bookDto);
+    return newBook.save();
+    /*
     return this.books.push({
       ...bookDto,
       id: Date.now().toString(),
     });
+    */
   }
-  delete(id: string) {
-    return this.books.filter((e) => e !== id);
+  async remove(id: string): Promise<Book> {
+    //return this.books.filter((e) => e !== id);
+    return this.bookModel.findByIdAndRemove(id);
   }
-  update(id: string, bookDto: UpdateBookDto) {
-    [...this.books.filter((el) => el[id] !== id), { [id]: bookDto }];
+  async update(id: string, bookDto: UpdateBookDto): Promise<Book> {
+    //[...this.books.filter((el) => el[id] !== id), { [id]: bookDto }];
+    return this.bookModel.findByIdAndUpdate(id, bookDto, { new: true });
   }
 }
