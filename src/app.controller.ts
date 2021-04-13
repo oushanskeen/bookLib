@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, BadRequestException, UnauthorizedException, Res, Req} from '@nestjs/common';
 import { AppService } from './app.service';
-import * as bcrypt from 'bcrypt';
-import {JwtService} from '@nestjs/jwt';
-import {Response, Request} from 'express';
+//import * as bcrypt from 'bcrypt';
+//import {JwtService} from '@nestjs/jwt';
+//import {Response, Request} from 'express';
 
 @Controller('api')
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly jwtService: JwtService
+    //private readonly jwtService: JwtService
   ) {}
 
   @Get()
@@ -16,7 +16,7 @@ export class AppController {
     return this.appService.getHello();
     //return 'Hello? me  your new lib!';
   }
-
+  /*
   @Post('register')
   async register(
     @Body('name') name: string,
@@ -72,6 +72,7 @@ export class AppController {
       throw new UnauthorizedException();
     };
 
-    //return data/*cookie*/;
-  }
+    //return data/*cookie;
+  //}
+  */
 }

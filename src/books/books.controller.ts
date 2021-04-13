@@ -16,26 +16,26 @@ import { Book } from './schemas/book.schema';
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
   @Get()
-  getAll(): string[] /*Promise<Book[]>*/ {
+  getAll(): /*string[]*/ Promise<Book[]> {
     return this.booksService.getAll();
   }
   @Get(':id')
-  getOne(@Param('id') id: string): string /*Promise<Book>*/ {
+  getOne(@Param('id') id: string): /*string*/ Promise<Book> {
     return this.booksService.getOne(id);
   }
   @Post()
-  create(@Body() createBookDto: CreateBookDto): number /*Promise<Book>*/ {
+  create(@Body() createBookDto: CreateBookDto): /*number*/ Promise<Book> {
     return this.booksService.create(createBookDto);
   }
   @Delete('id')
-  remove(@Param('id') id: string): string /*Promise<Book>*/ {
+  remove(@Param('id') id: string): /*string*/ Promise<Book> {
     return this.booksService.remove(id);
   }
   @Put(':id')
   update(
     @Body() updateBookDto: UpdateBookDto,
     @Param('id') id: string,
-  ): void /*Promise<Book>*/ {
+  ): /*void*/ Promise<Book> {
     return this.booksService.update(id, updateBookDto);
   }
 }
