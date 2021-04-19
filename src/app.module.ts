@@ -4,14 +4,17 @@ import { AppService } from './app.service';
 //import { BooksController } from './books/books.controller';
 //import { BooksService } from './books/books.service';
 import { BooksModule } from './books/books.module';
+import { BookCommentsModule } from './bookComments/bookComments.module';
 import { MongooseModule } from '@nestjs/mongoose';
 //import { TypeOrmModule } from '@nestjs/typeorm';
 //import { User } from './user/user.entity';
 //import {JwtModule} from '@nestjs/jwt';
+import { AppGateway } from './app.gateway';
 
 @Module({
   imports: [
     BooksModule,
+    BookCommentsModule,
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/nesttest'),
     // MongooseModule.forRoot(
     //
@@ -36,6 +39,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     */
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppGateway],
 })
 export class AppModule {}
